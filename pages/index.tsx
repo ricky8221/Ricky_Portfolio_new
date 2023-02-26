@@ -50,6 +50,9 @@ export default function Home() {
       </section>
 
       {/* Contact Me */}
+      <section id='contact' className="snap-start">
+        <ContactMe/>
+      </section>
     </div>
   );
 }
