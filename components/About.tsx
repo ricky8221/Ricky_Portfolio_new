@@ -2,12 +2,12 @@ import Image from "next/image";
 import React from "react";
 import portfolioImage from '../asset/portfolio.jpg'
 import { motion } from 'framer-motion'
-import aboutjpg from '../asset/about.jpg'
+import aboutjpg from "../asset/about.jpg"
 
 type Props = {};
 
 export default function About({}: Props) {
-  const aboutImg = <Image src={aboutjpg} alt="" />
+  const aboutImg = <Image src={aboutjpg} alt="Ricky and Bella image" />
   return (
     <motion.div 
     initial={{ opacity:0 }}
