@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import portfolioImage from '../asset/portfolio.jpg'
 import { motion } from 'framer-motion'
-import aboutjpg from '../asset/about.jpg'
+// import aboutjpg from '../asset/about.jpg'
 
 type Props = {};
 
