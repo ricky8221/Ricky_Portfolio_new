@@ -30,3 +30,9 @@ node_modules
 .next/trace
 .next/cache/webpack/server-development/index.pack
 .next/trace
+webpack
+.next
+client-development
+server-development
+webpack
+cache
