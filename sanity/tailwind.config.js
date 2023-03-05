@@ -7,5 +7,13 @@ module.exports = {
     theme: {
       extend: {},
     },
-    plugins: [],
+    plugins: [
+      "@sanity/base",
+      "@sanity/desk-tool",
+      "@sanity/components",
+      "@sanity/dashboard",
+      "@sanity/default-layout",
+      "@sanity/default-login",
+      "@sanity/vision"
+    ],
   }
