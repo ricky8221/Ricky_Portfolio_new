@@ -1,20 +1,41 @@
+import { InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import ContactMe from "@/components/ContactMe";
+import WorkExperience from "@/components/WorkExperience";
 import Link from "next/link";
 import homeImg from "../asset/home.jpg";
 import Image from "next/image";
+import { Experience, PageInfo, Project, Skill, Social } from "@/Typing";
+import { fetchPageInfo } from "@/utils/fetchPageInfo";
+import { fetchExperience } from "@/utils/fetchExperience";
+import { fetchSkills } from "@/utils/fetchSkill";
+import { fetchProject } from "@/utils/fetchProject";
+import { fetchSocial } from "@/utils/fetchSocial";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+type Props = {
+  pageInfo: PageInfo;
+  experiences: Experience[];
+  skill: Skill[];
+  project: Project[];
+  socials: Social[];
+};
+
+export default function Home({
+  pageInfo,
+  experiences,
+  skill,
+  project,
+  socials,
+}: Props) {
   return (
     <div className="bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
       <Head>
@@ -24,31 +45,31 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header */}
-      <Header />
+      <Header socials={socials} />
 
       {/* Hero */}
       <section id="hero" className="snap-center">
-        <Hero />
+        <Hero pageInfo={pageInfo} />
       </section>
 
       {/* About */}
       <section id="about" className="snap-start">
-        <About />
+        <About pageInfo={pageInfo} />
       </section>
 
       {/* Experience */}
       <section id="experience" className="snap-start">
-        <Experience />
+        <WorkExperience experiences={experiences} />
       </section>
 
       {/* Skills */}
       <section id="skills" className="snap-start">
-        <Skills />
+        <Skills skills={skill} />
       </section>
 
       {/* Projects */}
       <section id="projects" className="snap-start">
-        <Projects />
+        <Projects projects={project}/>
       </section>
 
       {/* Contact Me */}
@@ -70,3 +91,22 @@ export default function Home() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const pageInfo: PageInfo[] = await fetchPageInfo();
+  const experiences: Experience[] = await fetchExperience();
+  const skill: Skill[] = await fetchSkills();
+  const project: Project[] = await fetchProject();
+  const socials: Social[] = await fetchSocial();
+
+  return {
+    props: {
+      pageInfo,
+      experiences,
+      skill,
+      project,
+      socials,
+    },
+    revalidate: 10000,
+  };
+};

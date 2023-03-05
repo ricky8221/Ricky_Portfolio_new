@@ -4,13 +4,18 @@ import BackgroundCircle from "./BackgroundCircle";
 import portfolioImg from "../asset/portfolio.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import { PageInfo } from "@/Typing";
+import { urlFor } from "@/sanity";
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo
+};
 
-export default function Hero({}: Props) {
+export default function Hero({ pageInfo }: Props) {
+
   const [text, count] = useTypewriter({
     words: [
-      "Hi! My name is Ricky Chen",
+      `"Hi! My name is ${pageInfo?.name}"`,
       "Guy who love Next.js & TypeScript",
       "<And always ready for the next challenge!!!/>",
     ],
@@ -20,14 +25,14 @@ export default function Hero({}: Props) {
   return (
     <div className="h-screen flex flex-col space-y-8 justify-center text-center overflow-hidden">
       <BackgroundCircle />
-      <Image
-        src={portfolioImg}
+      <img
+        src={urlFor(pageInfo?.heroImage).url()}
         alt="Portfolio Image"
         className="relative rounded-full h-32 w-32 mx-auto object-cover"
       />
       <div className="z-20">
         <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[15px]">
-          Full Stack Developer
+          {pageInfo.role}
         </h2>
         <h1 className="text-5xl lg:6xl font-semibold px-10">
           <span className="mr-3">{text}</span>

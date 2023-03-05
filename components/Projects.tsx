@@ -1,10 +1,14 @@
+import { urlFor } from "@/sanity";
+import { Project } from "@/Typing";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 
-type Props = {};
+type Props = {
+  projects: Project[];
+};
 
-export default function Projects({}: Props) {
-  const projects = [1, 2, 3, 4, 5];
+export default function Projects({ projects }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -16,30 +20,54 @@ export default function Projects({}: Props) {
         Projects
       </h3>
 
-      <div className="relative w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 scrollbar scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+      <div className="relative w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
         {projects.map((project, i) => (
           <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
-           className="w-screen flex-shrink-0 snap-center flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen">
-            <motion.img 
-            initial={{ 
-              y:-300,
-              opacity: 0,
-             }}
-             transition={{ duration: 1.2 }}
-             whileInView={{ y: 0, opacity: 1 }}
-             viewport={{ once: true }}
-            src="https://i.ytimg.com/vi/x_EEwGe-a9o/maxresdefault.jpg" 
-            alt="" 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1.5 }}
+            className="w-screen flex-shrink-0 snap-center flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen"
+          >
+            <motion.img
+              initial={{
+                y: -300,
+                opacity: 0,
+              }}
+              transition={{ duration: 1.2 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              src={urlFor(project.image).url()}
+              alt=""
+              className="max-h-[40vh] mx-auto"
             />
-            <div className="space-y-10 px-0 md:px-10 max-w-6xl">
-              <h4 className="text-4xl font-semibold text-center">
-                <span className="underline decoration-[#F7AB0A]/50">Case Study {i+1} of {projects.length}:</span> UPS clone
-                </h4>
 
-                <p className="text-lg text-center md:text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus officiis quisquam quidem. Blanditiis cum cumque, fugiat dignissimos impedit quod sed aspernatur soluta. Sint totam itaque, maxime reprehenderit consequuntur nesciunt odit!</p>
+            <div className="space-y-10 items-center px-0 mx-auto md:px-10 max-w-6xl">
+              <h4 className="text-4xl font-semibold text-center">
+                <span className="underline decoration-[#F7AB0A]/50">
+                  Case Study {i + 1} of {projects.length}:
+                </span>{" "}
+                {project.title}
+                <br />
+              </h4>
+
+              <h2 className="text-center">
+                <a href={project.linkToBuild}>Link to Project</a> 
+              </h2>
+
+              <div className="flex space-x-2 justify-center">
+                {project?.technologies.map((technology) => (
+                  <img
+                    className="h-10 w-10"
+                    key={technology._id}
+                    src={urlFor(technology.image).url()}
+                    alt=""
+                  />
+                ))}
+              </div>
+
+              <p className="text-lg text-center md:text-center">
+                {project.summary}
+              </p>
             </div>
           </motion.div>
         ))}

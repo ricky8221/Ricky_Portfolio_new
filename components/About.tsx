@@ -3,10 +3,13 @@ import React from "react";
 import portfolioImage from '../asset/portfolio.jpg'
 import { motion } from 'framer-motion'
 import aboutjpg from "../asset/about.jpg"
+import { PageInfo } from "@/Typing";
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo
+};
 
-export default function About({}: Props) {
+export default function About({ pageInfo }: Props) {
   const aboutImg = <Image src={aboutjpg} alt="Ricky and Bella image" />
   return (
     <motion.div 
@@ -47,8 +50,7 @@ export default function About({}: Props) {
             <h4 className="text-4xl font-semibold">Here is a {''}
             <span className="underline decoration-[#7AB0A]">little</span>
             {''} background</h4>
-            <p className="text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, numquam qui itaque nemo nobis, magni sequi, nihil asperiores consectetur praesentium ex facere deserunt sed dignissimos eveniet earum similique possimus ipsa.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum nemo esse quos at tempore, dicta aut asperiores laboriosam rerum facilis neque sequi nisi exercitationem corrupti amet incidunt itaque numquam sed.</p>
+            <p className="text-base">{pageInfo.backgroundInformation}</p>
         </div>
     </motion.div>
   );
